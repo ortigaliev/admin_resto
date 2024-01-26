@@ -5,8 +5,8 @@ const app = express();
 const router = require("./router");
 
 //MONGO DB connection
-const db = require("./server").db();
-const mongodb = require("mongodb");
+const db = require("./server");
+const mongoose = require("mongoose");
 
 //1-Entry Code
 app.use(express.static("public")); //open Public folder for requested users
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true})); //to access requested post from 
 //2-Session Code
 
 //3-Views Code
-app.set("views", "views");//views folder path that we created
+app.set("views/", "views");//views folder path that we created
 app.set("view engine", "ejs");
 
 //4-Router related Code
