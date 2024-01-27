@@ -10,10 +10,10 @@ memberController.signup = async (req, res) => {
     const member = new Member();
     const new_member = await member.signupData(data);
 
-    res.send("done");
+    res.json({ state: "success", data: new_member });
   } catch (err) {
-    res.send("ERROR: This id or phone already has signedup");
     console.log(`ERROR, cont/signup, ${err.message}`);
+    res.json({ state: "fail", message: err.message});
   }
 };
 
