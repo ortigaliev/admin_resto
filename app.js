@@ -21,6 +21,7 @@ app.set("views/", "views");//views folder path that we created
 app.set("view engine", "ejs");
 
 //4-Router related Code
-app.use("/", router);
+//app.use("/resto", router_bssr); //This is router for clients
+app.use("/", router); //This is router for admin and restaurant user's
 
 module.exports = app;
