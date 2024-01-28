@@ -33,7 +33,7 @@ class Product {
         {_id: id,restaurant_mb_id: mb_id},
         updated_data,
         {
-          runValidators: true,
+          runValidators: true,//to get changed data
           lean: true,
           returnDocument: "after",
         })

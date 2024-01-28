@@ -44,7 +44,7 @@ productController.updateChosenProduct = async (req, res) =>{
         id,
         req.body,
         req.member._id);
-    res.json ({state: "success", data: result});
+    await res.json ({state: "success", data: result});
 
   } catch (err) {
     console.log(`ERROR, cont/updateChosenProduct, ${err.message}`);
