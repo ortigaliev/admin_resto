@@ -28,7 +28,7 @@ productSchema = new mongoose.Schema({
   },
   product_price: {
     type: Number,
-    required: true
+    required: true,
   },
   product_discount: {
     type: Number,
@@ -85,12 +85,12 @@ productSchema = new mongoose.Schema({
     type:Schema.Types.ObjectId,
     ref: "Member",
     required: false
-  }
+  },
 },
   {timestamps: true});//createdAt, updeatedAt
 
-product_Schema.index(
-  {restaurant_mb_id: 1, product_name: 1, product_size: 1, product_volume: 1},
+productSchema.index(
+  {restaurant_mb_id: 1, product_name: 1, product_size: 1, product_volume: 1},//Doesnt allow add new product with same param 2 restaurant
   {unique: true}
 );
 

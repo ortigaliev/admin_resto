@@ -28,11 +28,12 @@ router_bssr.get("/check-me", restaurantController.checkSession);//
 //Product releted routers
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
 router_bssr
-  .post("/products/create",
-  restaurantController.validateAuthRestaurant,
-  uploader_product.array("product_images", 5),
-  productController.addNewProduct);
-router_bssr.post("/product/edit/:id", productController.updateChosenProduct);
+  .post("/products/create",restaurantController.validateAuthRestaurant,
+    uploader_product.array("product_images", 5),
+    productController.addNewProduct);
+
+router_bssr.post("/product/edit/:id",
+    restaurantController.validateAuthRestaurant,productController.updateChosenProduct);
 
 
 module.exports = router_bssr;
