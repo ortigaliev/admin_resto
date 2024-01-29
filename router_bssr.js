@@ -10,7 +10,7 @@ const uploader_product = require("./utils/upload-multer")("products");
 
 //Restaurant releted router
 
-/* router_bssr.get("/", restaurantController.home); */
+router_bssr.get("/", restaurantController.home);
 
 router_bssr
   .get("/signup",restaurantController.getSignupMyRestaurant)//signup router
