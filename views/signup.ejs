@@ -1,6 +1,77 @@
 <%- include('includes/header') %>
 <body>
-  <h1>Signup Page</h1>
+  <link rel="stylesheet" type="text/css" href="/css/login.css">
+<body>
+  <form
+  class="login_container"
+  action="/resto/sign-up"
+  method="POST"
+  enctype="multipart/form-data">
+
+    <div class="login_frame" style="width: 650px; height: 730px;">
+
+      <div class="login_top">
+        <span>Sign Up</span>
+        <div>
+          Back to Main Page <a href="/resto" style="color: #6440fb">Home</a>
+        </div>
+        <p>Already a member? <a href="/resto/login" style="color: #6440fb">Sign In</a></p>
+      </div>
+
+      <div class="sign_input_frame">
+        <div class="sign_up_frame">
+          <label>User ID</label>
+          <input type="text" name="mb_nick" placeholder="User ID" value="" required>
+        </div>
+
+        <div class="sign_up_frame">
+          <label>Phone number</label>
+          <input type="text" name="mb_phone" placeholder="Phone number" value="" required>
+        </div>
+      </div>
+
+      <!-- PASSWORD SECTION -->
+      <div class="sign_input_frame">
+        <div class="sign_up_frame">
+          <label>Password</label>
+          <input type="password" name="mb_password" placeholder="Password" value="" required>
+        </div>
+
+        <div class="sign_up_frame">
+          <label>Confirm your password</label>
+          <input type="password" name="mb_confirm_password" placeholder="Confirm your password" value="" required>
+        </div>
+      </div>
+
+      <div class="login_input_frame">
+        <div class="media-frame">
+          <img class="upload_img_frame" src="/icons/resto_upload_icon.png" alt="resto_img_required">
+          <div class="upload_container">
+            <span class="media_text">Food image</span>
+            <div class="filebox bs3-primary preview-images">
+              <input class="upload-name" value="Rasmni tanlang" disabled="disabled">
+              <label>Upload image</label>
+              <input
+              class="upload-hiddin form-control-file restaurant_img"
+              type="file"
+              name="restaurant_img"
+              placeholder=""
+              id="input_file"
+              required>
+            </div>
+
+            <p class="thumbnail_desc">Please upload your Restaurant image.
+              <br>Note: Please upload required img format(jpg,jpeg or png) <br> Image doesn't cointain text!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RO"YHATDAN O"TISH BUTTON -->
+      <button class="login_btn btn" name="signup" type="submit">Sign Up</button>
+
+    </div>
+  </form>
 </body>
 
 <%- include('includes/footer') %>
