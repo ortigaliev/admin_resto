@@ -1,6 +1,8 @@
+const Definer = require("../lib/mistakes");
 const Member = require("../models/Member");
 const Product = require("../models/Product");
 let restaurantController = module.exports;
+const assert = require("assert");
 
 restaurantController.home = (req, res) => {
   try{
@@ -37,11 +39,17 @@ restaurantController.getSignupMyRestaurant = async (req, res) =>{
 restaurantController.signupProcess = async (req, res) => {
   try{
     console.log("POST: cont/signupProcess");
-    const data = req.body,
-    member = new Member(),
-    new_member = await member.signupData(data);
+    assert.ok(req.file, Definer.general_err3);
 
-    req.session.member = new_member;
+    let new_member = req.body;
+    new_member.mb_type = "RESTAURANT";
+    new_member.mb_image = req.file.path;
+
+    const member = new Member();
+    const result = await member.signupData(new_member);
+    assert.ok(result, Definer.general_err1);
+
+    req.session.member = result;
     res.redirect("/resto/products/menu");
   } catch (err) {
     console.log(`ERROR, cont/signupProcess, ${err.message}`);
@@ -69,7 +77,7 @@ restaurantController.loginProcess = async (req, res) => {
 
     req.session.member = result;
     req.session.save(function () {
-      result.mb_type === "ADMIN" ? res.redirect("/resto/all-restaurant")
+      result.mb_type === "ADMIN" ? res.redirect("/resto/all-products")
       : res.redirect("/resto/products/menu");
     });
   } catch (err) {
@@ -80,8 +88,15 @@ restaurantController.loginProcess = async (req, res) => {
 
 //loguot controller
 restaurantController.logout = (req, res) => {
-  console.log("GET contr.logout");
-  res.send("You are logout");
+  try{
+    console.log("GET cont/logout");
+    req.session.destroy(function () {
+      res.redirect("/resto");
+    });
+  } catch(err) {
+    console.log(`ERROR, cont/logout, ${err.message}`);
+    res.json({ state: "fail", message: err.message});
+  }
 };
 
 //Validate AUTH Restaurant

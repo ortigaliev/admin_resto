@@ -46,7 +46,7 @@ class Member {
     } catch (err) {
       throw err;
     }
-  }
+  } 
 }
 
 module.exports = Member;
