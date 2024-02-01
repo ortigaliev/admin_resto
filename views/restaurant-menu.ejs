@@ -44,7 +44,7 @@
                 <td><%= value.product_price %></td>
                 <td><%= value.product_left_cnt %></td>
                 <td>
-                  <select class="spec_select" id="<%= value._id %>">
+                  <select class="spec_select new_product_status" id="<%= value._id %>">
                     <option value="PAUSED" <%= value.product_status ==='PAUSED' ? 'selected' : '' %>>PAUSED</option>
                     <option value="PROCESS" <%= value.product_status ==='PROCESS' ? 'selected' : '' %>>PROCESS</option>
                   </select>
@@ -193,7 +193,31 @@
         $(".hiding_btn").css("display", "none");
       });
 
+      // product status changer Process to Pause and Pause to Process
+
+      $(".new_product_status").on("change", async function(e) {
+        const id = e.target.id;
+        const product_status = $(`#${id}.new_product_status`).val();
+        try {
+          const response = await axios.post(
+          `/resto/products/edit/${id}`,
+          {id: id, product_status: product_status}); // request body
+          const result = response.data;
+          console.log("result:", result);
+          if(result.state == "success") {
+            alert("success");
+            location.reload();
+          } else {
+            alert(result.message);
+          }
+        } catch(err) {
+          console.log('updateChosenProduct err:', err);
+        }
+      })
+
     });
+
+
 
     function validateForm() {
       const restaurant_mb_id = $(".restaurant_mb_id").val(),
