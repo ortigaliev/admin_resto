@@ -26,9 +26,9 @@ productController.addNewProduct = async (req, res) =>{
     const result = await product.addNewProductData(data, req.member);
     assert.ok(result, Definer.product_err1);
     const html = `<script>
-                    alert(new dish added successfully);
+                    alert('new dish added successfully');
                     window.location.replace("/resto/products/menu");
-                  <script>`; //if product added successfully it send a product sucessfuly
+                  </script>`; //if product added successfully it send a product sucessfuly
     res.end(html);
   } catch (err) {
     console.log(`ERROR, cont/addNewProduct, ${err.message}`);
