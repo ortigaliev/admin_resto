@@ -77,7 +77,7 @@ restaurantController.loginProcess = async (req, res) => {
 
     req.session.member = result;
     req.session.save(function () {
-      result.mb_type === "ADMIN" ? res.redirect("/resto/all-products")
+      result.mb_type === "ADMIN" ? res.redirect("/resto/all-restaurants")
       : res.redirect("/resto/products/menu");
     });
   } catch (err) {
@@ -116,5 +116,33 @@ restaurantController.checkSession = (req, res) => {
     res.json({ state: "success", data: req.session.member });
   } else {
     res.json({ state: "fail", message: "You are not authenticated"});
+  }
+};
+
+//Admin user controll logic.
+restaurantController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script>
+                    alert('Admin page: Permission denied!');
+                    window.location.replace('/resto');
+                  </script>`;
+    res.end(html);
+  }
+};
+
+//All restaurants control panel for admin
+restaurantController.getAllRestaurants = async (req, res) => {
+  try {
+    console.log("GET cont/getAllRestaurants");
+
+    // todo: retrieve all restaurants from DB
+
+    res.render("all-restaurants");
+  } catch (err) {
+    console.log(`ERROR, cont/getAllRestaurants, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
 };
