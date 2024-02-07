@@ -62,21 +62,26 @@
   <script>
 
 $(function() {
+
         // manipualte restaurants top features
         $(".mb_top").on('change', function(e) {
           const id = e.target.id;
           const mb_top = e.target.checked ? 'Y' : 'N';
-          axios.post("/resto/all-restaurants/edit", {id: id, mb_top: mb_top})
+          axios.post("/resto/all-restaurant/edit", {id: id, mb_top: mb_top})
           .then(response => {
             const result = response.data;
-            if(result.state === 'success') {
+            if(result.state === 'success')
               alert('Successfully Updated');
-            } else {
+            else
               alert(result.message);
-            }
-          }).catch(err => console.log(err))
-        })
+
+          })
+          .catch(err => console.log(err));
+
+        });
+
       });
+
   </script>
 </body>
 

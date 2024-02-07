@@ -43,7 +43,7 @@ router_bssr.get(
 );
 
 router_bssr.post(
-  "/all-restaurants/edit",
+  "/all-restaurant/edit",
   restaurantController.validateAdmin,
   restaurantController.updateRestaurantByAdmin
 );
