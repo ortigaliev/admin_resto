@@ -27,7 +27,7 @@ class Restaurant {
     try{
       const id = shapeIntoMongooseObjectId(update_data?.id);
       const result = await this.memberModel
-        .findByIdAndUpdate({ _id: id}, update-data, {
+        .findByIdAndUpdate({ _id: id}, update_data, {
           runValidators: true,
           lean: true,
           returnDocument: "after",

@@ -37,7 +37,7 @@ router_bssr.post("/products/edit/:id",
 );
 
 router_bssr.get(
-  "/all-restaurants",
+  "/all-restaurant",
   restaurantController.validateAdmin,
   restaurantController.getAllRestaurants
 );
