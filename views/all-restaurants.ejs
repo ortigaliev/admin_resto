@@ -71,7 +71,8 @@
           axios.post("/resto/all-restaurant/edit", {id: id, mb_top: mb_top})
           .then(response => {
             const result = response.data;
-            if (result.state === 'success')
+            if (result.state === 'success') alert('successfullt updated');
+            else alert(result.message   )
           })
           .catch(err => console.log(err));
 
