@@ -3,30 +3,32 @@ let memberController = module.exports;
 
 /* SIGNUP CONTROLLER */
 memberController.signup = async (req, res) => {
-  try{
+  try {
     console.log("Post: cont/signup");
     const data = req.body,
-    member = new Member(),
-    new_member = await member.signupData(data);
+      member = new Member(),
+      new_member = await member.signupData(data);
 
+    //TODO:AUTHENTICATE BASED ONJWT
     res.json({ state: "success", data: new_member });
   } catch (err) {
     console.log(`ERROR, cont/signup, ${err.message}`);
-    res.json({ state: "fail", message: err.message});
+    res.json({ state: "fail", message: err.message });
   }
 };
 
 memberController.login = async (req, res) => {
-  try{
+  try {
     console.log("Post: cont/login");
     const data = req.body,
       member = new Member(),
       result = await member.loginData(data);
 
+    //TODO:AUTHENTICATE BASED ONJWT
     res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/login, ${err.message}`);
-    res.json({ state: "fail", message: err.message});
+    res.json({ state: "fail", message: err.message });
   }
 };
 

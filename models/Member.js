@@ -22,12 +22,11 @@ class Member {
         console.log(mongo_err);
         throw new Error(Definer.auth_err1);
       }
-      console.log(result);
 
+      result.mb_password = "";
       return result;
     } catch (err) {
       throw err;
-
     }
   }
 
@@ -46,7 +45,7 @@ class Member {
     } catch (err) {
       throw err;
     }
-  } 
+  }
 }
 
 module.exports = Member;
