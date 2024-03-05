@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const router = require("./router");
 const router_bssr = require("./router_bssr");
+const cookieParser = require("cookie-parser");
 
 let session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);//mongodb ni storege hosil qilishga yordam beradi
@@ -11,14 +12,12 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-//MONGO DB connection
-/* const db = require("./server");
-const mongoose = require("mongoose"); */
 
 //1-Entry Code
 app.use(express.static("public")); //open Public folder for requested users
 app.use(express.json()); //Converst from json format to Object
 app.use(express.urlencoded({ extended: true})); //to access requested post from HTML form
+app.use(cookieParser());
 
 
 //2-Session Code

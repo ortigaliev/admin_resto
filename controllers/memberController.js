@@ -1,5 +1,8 @@
 const Member = require("../models/Member");
 let memberController = module.exports;
+const jwt = require("jsonwebtoken");
+const assert = require("assert");
+const Definer = require("../lib/mistakes");
 
 /* SIGNUP CONTROLLER */
 memberController.signup = async (req, res) => {
@@ -9,7 +12,12 @@ memberController.signup = async (req, res) => {
       member = new Member(),
       new_member = await member.signupData(data);
 
-    //TODO:AUTHENTICATE BASED ONJWT
+    const token = memberController.createToken(new_member);
+    res.cookie("access_token", token, {
+      maxAge: 6 * 3600 * 1000,
+      httpOny: true,
+    });
+
     res.json({ state: "success", data: new_member });
   } catch (err) {
     console.log(`ERROR, cont/signup, ${err.message}`);
@@ -24,7 +32,13 @@ memberController.login = async (req, res) => {
       member = new Member(),
       result = await member.loginData(data);
 
-    //TODO:AUTHENTICATE BASED ONJWT
+    const token = memberController.createToken(result);
+
+    res.cookie("access_token", token, {
+      maxAge: 6 * 3600 * 1000,
+      httpOny: true,
+    });
+
     res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/login, ${err.message}`);
@@ -33,5 +47,25 @@ memberController.login = async (req, res) => {
 };
 
 memberController.logout = (req, res) => {
+  console.log("Get cont.logout");
   res.send("This is logout page");
+};
+
+memberController.createToken = (result) => {
+  try {
+    const upload_data = {
+      _id: result._id,
+      mb_nick: result.mb_nick,
+      my_type: result.mb_type,
+    };
+
+    const token = jwt.sign(upload_data, process.env.SECRET_TOKEN, {
+      expiresIn: "6h",
+    });
+
+    assert.ok(token, Definer.auth_err2t);
+    return token;
+  } catch (err) {
+    throw err;
+  }
 };
