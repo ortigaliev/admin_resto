@@ -3,7 +3,7 @@ const {like_view_group_list, board_id_enum_list } = require("../lib/config");
 const Schema = mongoose.Schema;
 
 const viewSchema = new mongoose.Schema({
-  mb_id: {type: Schema.Types.ObjectId, required },
+  mb_id: {type: Schema.Types.ObjectId, required: true },
   view_ref_id: { type: Schema.Types.ObjectId, required: true },
   view_group: {
     type: String,

@@ -47,7 +47,7 @@ memberController.login = async (req, res) => {
 };
 
 memberController.logout = (req, res) => {
-  console.log("Get cont.logout");
+  console.log("Get cont/logout");
   res.cookie("access_token", null, { maxAge: 0, httpOny: true });
   res.json({ state: "success", data: "Logout successfully!" });
 };
@@ -93,6 +93,7 @@ memberController.getChosenMember = async (req, res) => {
 
     const member = new Member();
     const result = await member.getChosenMemberData(req.member, id);
+
     res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/getChosenMember, ${err.message}`);
