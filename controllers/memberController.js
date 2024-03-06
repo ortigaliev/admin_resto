@@ -48,7 +48,8 @@ memberController.login = async (req, res) => {
 
 memberController.logout = (req, res) => {
   console.log("Get cont.logout");
-  res.send("This is logout page");
+  res.cookie("access_token", null, { maxAge: 0, httpOny: true });
+  res.json({ state: "success", data: "Logout successfully!" });
 };
 
 memberController.createToken = (result) => {
