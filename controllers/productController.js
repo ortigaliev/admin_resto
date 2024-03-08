@@ -42,7 +42,7 @@ productController.addNewProduct = async (req, res) => {
     let data = req.body;
 
     data.prodact_images = req.files.map((ele) => {
-      return ele.path; //Get file path and save it to DB
+      return ele.path.replace(/\\/g, "/");
     });
     const result = await product.addNewProductData(data, req.member);
     assert.ok(result, Definer.product_err1);
