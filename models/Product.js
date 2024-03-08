@@ -48,6 +48,11 @@ class Product {
       const auth_mb_id = shapeIntoMongooseObjectId(member?.id);
       id = shapeIntoMongooseObjectId(id);
 
+      if (member) {
+        const member_obj = new Member();
+        member_obj.viewChosenItemByMember(member, id, "product");
+      }
+
       const result = await this.productModel
         .aggregate([
           { $match: { _id: id, product_status: "PROCESS" } },
