@@ -1,10 +1,10 @@
 const ViewModel = require("../schema/view.model");
-const memberModel = require("../schema/member.model");
+const MemberModel = require("../schema/member.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
-    this.memberModel = memberModel;
+    this.memberModel = MemberModel;
     this.mb_id = mb_id;
   }
 

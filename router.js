@@ -21,6 +21,12 @@ router.post(
   productController.getAllProducts
 );
 
+router.get(
+  "/products/:id",
+  memberController.retrieveAuthMember,
+  productController.getChosenProduct
+);
+
 //Others
 router.get("/community", (req, res) => {
   res.send("This is Community Page");
