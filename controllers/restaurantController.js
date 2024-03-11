@@ -23,7 +23,7 @@ restaurantController.getChosenRestaurant = async (req, res) => {
   try {
     console.log("GET: cont/getChosenRestaurant");
     const id = req.params.id,
-      restaurant =  new Restaurant(),
+      restaurant = new Restaurant(),
       result = await restaurant.getChosenRestaurantData(req.member, id);
 
     res.json({ state: "success", data: result });

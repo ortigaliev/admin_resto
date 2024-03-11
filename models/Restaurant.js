@@ -28,7 +28,7 @@ class Restaurant {
           aggregationQuery.push({ $sample: { size: data.limit } });
           break;
         default:
-          aggregationQuery.push({ $sample: match });
+          aggregationQuery.push({ $match: match });
           const sort = { [data.order]: -1 };
           aggregationQuery.push({ $sort: sort });
           break;

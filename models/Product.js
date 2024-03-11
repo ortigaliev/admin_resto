@@ -45,7 +45,7 @@ class Product {
 
   async getChosenProductData(member, id) {
     try {
-      const auth_mb_id = shapeIntoMongooseObjectId(member?.id);
+      const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
       id = shapeIntoMongooseObjectId(id);
 
       if (member) {
