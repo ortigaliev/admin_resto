@@ -4,12 +4,49 @@ const MemberModel = require("../schema/member.model");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
 
 class Restaurant {
-  constructor () {
+  constructor() {
     this.memberModel = MemberModel;
   }
 
+  async getRestaurantsData(member, data) {
+    try {
+      const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+      let match = { mb_type: "RESTAURANT", mb_status: "ACTIVE" };
+      let aggregationQuery = [];
+      data.limit = data["limit"] * 1;
+      data.page = data["page"] * 1;
+
+      switch (data.order) {
+        case "top":
+          match["mb_top"] = "Y";
+          aggregationQuery.push({ $match: match });
+          aggregationQuery.push({ $sample: { size: data.limit } });
+          break;
+        case "random":
+          aggregationQuery.push({ $match: match });
+          aggregationQuery.push({ $sample: { size: data.limit } });
+          break;
+        default:
+          aggregationQuery.push({ $sample: match });
+          const sort = { [data.order]: -1 };
+          aggregationQuery.push({ $sort: sort });
+          break;
+      }
+
+      aggregationQuery.push({ $skip: (data.page - 1) * data.limit });
+      aggregationQuery.push({ $limit: data.limit });
+      //TODO: check auth member liked the chosen target
+
+      const result = await this.memberModel.aggregate(aggregationQuery).exec();
+      assert.ok(result, Definer.general_err1);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async getAllRestaurantsData() {
-    try{
+    try {
       const result = await this.memberModel
         .find({
           mb_type: "RESTAURANT",
@@ -18,16 +55,16 @@ class Restaurant {
 
       assert(result, Definer.general_err1);
       return result;
-    } catch(err) {
+    } catch (err) {
       throw err;
     }
   }
 
   async updateRestaurantByAdminData(update_data) {
-    try{
+    try {
       const id = shapeIntoMongooseObjectId(update_data?.id);
       const result = await this.memberModel
-        .findByIdAndUpdate({ _id: id}, update_data, {
+        .findByIdAndUpdate({ _id: id }, update_data, {
           runValidators: true,
           lean: true,
           returnDocument: "after",
@@ -36,9 +73,8 @@ class Restaurant {
 
       assert.ok(result, Definer.general_err1);
       return result;
-    } catch(err){
+    } catch (err) {
       throw err;
-
     }
   }
 }
