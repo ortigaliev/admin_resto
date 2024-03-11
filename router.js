@@ -34,6 +34,11 @@ router.get(
   memberController.retrieveAuthMember,
   restaurantController.getRestaurants
 );
+router.get(
+  "/restaurants/:id",
+  memberController.retrieveAuthMember,
+  restaurantController.getChosenRestaurant
+);
 
 //Others
 router.get("/community", (req, res) => {
