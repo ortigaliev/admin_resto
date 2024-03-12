@@ -1,5 +1,6 @@
 const assert = require("assert");
 const Definer = require("../lib/mistakes");
+const Community = require("../models/Community");
 
 let communityController = module.exports;
 
@@ -20,9 +21,12 @@ communityController.imageInsertion = async (req, res) => {
 communityController.createArticle = async (req, res) => {
   try {
     console.log(`POST: cont/createArticle`);
-    assert.ok(req.file, Definer.general_err3);
 
-    //Community service model
+    const community = new Community();
+    const result = await community.createArticleData(req.member, req.body);
+    assert.ok(result, Definer.general_err1);
+
+    res.json({ state: "sucess", data: result });
   } catch (err) {
     console.log(`ERROR, cont/createArticle, ${err.message}`);
     res.json({ state: "fail", message: err.message });
