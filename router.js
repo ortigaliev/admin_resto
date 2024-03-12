@@ -67,6 +67,11 @@ router.post(
   uploader_community.single("community_image"),
   communityController.imageInsertion
 );
+router.post(
+  "/community/create",
+  memberController.retrieveAuthMember,
+  communityController.createArticle
+);
 
 //Others
 router.get("/community", (req, res) => {
