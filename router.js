@@ -72,14 +72,10 @@ router.post(
   memberController.retrieveAuthMember,
   communityController.createArticle
 );
-
-//Others
-router.get("/community", (req, res) => {
-  res.send("This is Community Page");
-});
-
-router.get("/menu", (req, res) => {
-  res.send("This is Menu Page");
-});
+router.get(
+  "/community/articles",
+  memberController.retrieveAuthMember,
+  communityController.getMemberArticles
+);
 
 module.exports = router;
