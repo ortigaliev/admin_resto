@@ -29,6 +29,11 @@ class View {
             .exec();
           break;
         //Article view logic
+        case "community":
+          result = await this.boArticleModel
+            .findOne({ _id: view_ref_id, art_status: "active" })
+            .exec();
+          break;
       }
 
       return !!result;
@@ -71,6 +76,12 @@ class View {
               { _id: view_ref_id },
               { $inc: { product_views: 1 } }
             )
+            .exec();
+          break;
+        //increse article view by 1
+        case "community":
+          await this.boArticleModel
+            .findByIdAndUpdate({ _id: view_ref_id }, { $inc: { art_views: 1 } })
             .exec();
           break;
       }

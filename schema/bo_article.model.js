@@ -34,4 +34,4 @@ const boArticleSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("boArticle", boArticleSchema);
+module.exports = mongoose.model("BoArticle", boArticleSchema);
