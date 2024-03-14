@@ -83,5 +83,4 @@ router.get(
   communityController.getArticles
 );
 
-
 module.exports = router;
