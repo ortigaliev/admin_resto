@@ -9,7 +9,7 @@ const communityController = require("./controllers/communityController");
 const uploader_community = require("./utils/upload-multer")("community");
 const uploader_member = require("./utils/upload-multer")("members");
 
-//Member realted routers
+//Member related routers
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
 router.get("/logout", memberController.logout);
@@ -18,6 +18,13 @@ router.get(
   "/member/:id",
   memberController.retrieveAuthMember,
   memberController.getChosenMember
+);
+
+//Like related router
+router.post(
+  "/member-liken",
+  memberController.retrieveAuthMember,
+  memberController.likeMemberChosen
 );
 
 //Product related routers
